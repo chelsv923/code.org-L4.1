@@ -1,0 +1,80 @@
+/* Define a base style for the root container */
+.root {
+    -fx-font-family: Arial, sans-serif;
+    -fx-background-color: #f4f4f4;
+}
+
+/* Define styles for the VBox that contains the main screen components */
+.vbox {
+    -fx-background-color: #fff;
+    -fx-border-radius: 10px;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 0);
+    -fx-spacing: 10px;
+    -fx-padding: 10px;
+}
+
+/* Style the label that greets the user */
+.label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-padding: 0 0 10px 0;
+}
+
+/* Define a base style for buttons */
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: #fff;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}
+
+/* Style for the ComboBox (Movie Dropdown) */
+.combobox {
+    -fx-pref-width: 250px;
+    -fx-font-size: 16px;
+}
+
+/* Styles for the HBox that contains the rating buttons */
+.hbox {
+    -fx-alignment: center;
+    -fx-spacing: 10px;
+}
+
+/* Style for Alert Dialogs */
+.dialog-pane {
+    -fx-font-size: 16px;
+    -fx-background-color: #f9f9f9;
+    -fx-padding: 20px;
+}
+
+.dialog-button {
+    -fx-font-size: 14px;
+}
+
+/* Styles for the ListView of Ratings */
+.listview {
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-pref-height: 300px;  /* Adjust this according to the preferred size */
+    -fx-cell-hover-color: #eee;
+}
+
+.listview .list-cell {
+    -fx-padding: 5px 10px;
+}
+
+.listview .list-cell:filled:selected, .listview .list-cell:filled:selected:hover {
+    -fx-background-color: #3498db;
+    -fx-text-fill: #fff;
+}
