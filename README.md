@@ -30,13 +30,56 @@ Remember, the user wants to see the movies they have rated and the score they ga
 
 ✅ **Do This:** With your partner, plan the steps the app needs to take. This can be in the form of pseudocode, a flowchart, sketches, or any other representation you choose.
 
-Write your steps here!
+//STEPS 
+// When the user taps “View Your Ratings”:
+onViewRatingsButtonClicked() {
+  // 1. Retrieve the currently-logged-in user
+  User currentUser = UserSession.getCurrentUser();
+  
+  // 2. Fetch that user’s ratings from the data layer
+  List<Rating> userRatings = RatingsRepository.getRatingsForUser(currentUser.getId());
+  
+  // 3. Update the header to show “Ratings for <User’s Name>”
+  headerTextView.setText("Ratings for " + currentUser.getName());
+  
+  // 4. Clear any existing entries in the ratings list container
+  ratingsContainer.removeAllViews();
+  
+  // 5. For each Rating:
+  for (Rating r : userRatings) {
+    //   a) Inflate or create a row view
+    View row = inflater.inflate(R.layout.rating_row, ratingsContainer, false);
+    //   b) Set the movie title text
+    ((TextView) row.findViewById(R.id.movieTitle)).setText(r.getMovieTitle());
+    //   c) Set the rating score text
+    ((TextView) row.findViewById(R.id.movieScore)).setText(String.valueOf(r.getScore()));
+    //   d) Add the row to the container
+    ratingsContainer.addView(row);
+  }
+}
+
+// When the app switches to a different user:
+onUserSwitched() {
+  // Re-run the same logic:
+  onViewRatingsButtonClicked();
+}
+
 
 ## Step 3: Planning the Prompt
 
 ✅ **Do This:** Based on the steps you've outlined, what code do we need to ask Copilot for? With your partner, plan the prompt you want to ask Copilot.
 
 Write your prompt here!
+//Prompt:
+//In the android app in Java with a UserRatingsScreen Activity (or Fragment): When the user taps the View Your Ratings button, please modify code so that:
+//Get the current user from UserSession.
+//Load their list of Rating objects from RatingsRepository.
+//Set a header TextView to Ratings for <username>.
+//Clear my LinearLayout or RecyclerView adapter.
+//For each rating, inflate a row layout containing a movie title TextView and a score TextView, then add it to the container.
+//6. Additionally ,when the app’s current user changes, I want to automatically refresh that list.
+//Please provide the Java code inside the Activity/Fragment to implement that logic in the button’s onClick handler and in a user-switch listener.
+
 
 > &nbsp;
 > **Tip!**
@@ -51,10 +94,35 @@ AI code-generating tools like Copilot are not always right and sometimes even su
 ✅ **Do This:** With your partner, trace the code Copilot suggested as a solution. This can be in the form of a numbered or bulleted list, a flowchart, a drawing, or any other representation you choose.
 
 Trace your code here!
+//viewRatingsButton.setOnClickListener(v -> {
+ // User user = UserSession.getCurrentUser();
+ // List<Rating> ratings = RatingsRepository.getRatingsForUser(user.getId());
+
+ // usernameHeader.setText("Ratings for " + user.getName());
+ // ratingsContainer.removeAllViews();
+
+//  for (Rating r : ratings) {
+  //  View row = getLayoutInflater().inflate(R.layout.rating_row, ratingsContainer, false);
+  //  TextView title = row.findViewById(R.id.movieTitle);
+  //  TextView score = row.findViewById(R.id.movieScore);
+
+  //  title.setText(r.getMovie().getTitle());
+  //  score.setText(String.valueOf(r.getScore()));
+  //  ratingsContainer.addView(row);
+  }
+//});
+
+//  listening for user changes:
+//UserSession.addOnUserChangeListener(newUser -> {
+  // duplicate code: maybe call the button’s click listener manually
+//  viewRatingsButton.performClick();
+//});
+
 
 Based on your analysis, would the code it suggested make sense as a solution to the problem? Why or why not?
 
 Write your response here!
+//Yes but I would not call performClick() and instead use a method like renderUserRatings()) and use it for both the user switch callback and the button listener.
 
 If the code it suggested does **not** make sense as a solution, what needs to be improved - the steps you outlined to solve the problem or the prompt you gave Copilot? What modifications do you need to make?
 
